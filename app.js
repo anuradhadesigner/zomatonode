@@ -34,12 +34,12 @@ app.get('/location',(req,res) => {
 })
 //hotels as per city
 app.get('/hotels',(req,res) => {
-    let city = Number(req.params.city)
+    let cityId = Number(req.params.city)
     let query = {};
-    if(city){
-        query = {city: city}
+    if(cityId){
+        query = {city: cityId}
     }
-    console.log(">>>>hotelId",city)
+    console.log(">>>>hotelId",cityId)
     db.collection('hotels').find(query).toArray((err,result) => {
         if(err) throw err;
         res.send(result)
