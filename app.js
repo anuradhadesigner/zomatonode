@@ -19,36 +19,28 @@ app.use(cors())
 app.get('/',(req,res) =>{
     res.send("Welcome to express")
 })
-
-//city 
-// app.get('/city',(req,res) => {
-//     res.send("This is from city")
-// })
-
-//location----------------------return all the city
-app.get('/location',(req,res) => {
-    db.collection('location').find().toArray((err,result) => {
+//location
+app.get('/location',(req,res) =>{
+    db.collection('location').find().toArray((err, result) =>{
         if(err) throw err;
         res.send(result)
     })
+    // res.send("Get Location")
 })
 
-//restaurants as per location
-/*app.get('/restaurants',(req,res) => {
-    let stateId = Number(req.params.state_id)
-    let query = {};
-    if(stateId){
-        query = {state_id: stateId}
-    }
-    console.log(">>>>restId",stateId)
-    db.collection('restaurants').find(query).toArray((err,result) => {
+//restaurant as per location
+/*app.get('/restaurants/:id',(req,res) =>{ 
+    let restId = Number(req.params.id)
+    console.log(">>>>restId",restId)
+    db.collection('restaurants').find({state_id:restId}).toArray((err, result) =>{
         if(err) throw err;
         res.send(result)
     })
-    
 })*/
-app.get('/restaurants',(req,res) => {
-    let stateId  = Number(req.query.state_id)
+
+//with query params
+app.get('/restaurants',(req,res) =>{ 
+    let stateId = Number(req.query.state_id)
     let mealId = Number(req.query.meal_id)
     let query = {};
     if(stateId && mealId){
@@ -61,35 +53,28 @@ app.get('/restaurants',(req,res) => {
         query = {"mealTypes.mealtype_id":mealId}
     }
     console.log(">>>>restId",stateId)
-    db.collection('restaurants').find(query).toArray((err,result) =>{
+    db.collection('restaurants').find(query).toArray((err, result) =>{
         if(err) throw err;
         res.send(result)
     })
 })
-
-// filters
-app.get('/filter/:mealId',(req,res) => {
-    let sort = {cost:1}
+//filters
+app.get('/filter/:mealId',(req,res) =>{
+    let sort = {cost: 1}
     let mealId = Number(req.params.mealId)
-    let skip = 0;
-    let limit = 100000000000000;
-    let cuisineId =  Number(req.query.cuisine)
+    let cuisineId = Number(req.query.cuisine)
     let lcost = Number(req.query.lcost);
     let hcost = Number(req.query.hcost);
     let query = {}
     if(req.query.sort){
         sort = {cost:req.query.sort}
     }
-    if(req.query.skip && req.query.limit){
-        skip = Number(req.query.skip);
-        limit = Number(req.query.limit);
-    }
     if(cuisineId&lcost&hcost){
         query = {
-            "cuisines.cuisine_id":cuisineId,
-            "mealTypes.mealtype_id":mealId,
-            $and:[{cost:{$gt:lcost,$lt:hcost}}]
-        }
+                "cuisines.cuisine_id":cuisineId,
+                "mealTypes.mealtype_id":mealId,
+                $and:[{cost:{$gt:lcost,$lt:hcost}}]
+            }
     }
     else if(cuisineId){
         query = {"cuisines.cuisine_id":cuisineId,"mealTypes.mealtype_id":mealId}
@@ -97,91 +82,95 @@ app.get('/filter/:mealId',(req,res) => {
     else if(lcost&hcost){
         query = {$and:[{cost:{$gt:lcost,$lt:hcost}}],"mealTypes.mealtype_id":mealId}
     }
-
-    db.collection('restaurants').find(query).sort(sort).skip(skip).limit(limit).toArray((err,result) =>{
+    db.collection('restaurants').find(query).sort(sort).toArray((err, result) =>{
         if(err) throw err;
         res.send(result)
     })
 })
 
-// mealType
-app.get('/mealType',(req,res) => {
-    db.collection('mealType').find().toArray((err,result) =>{
+//mealType
+app.get('/mealtype',(req,res) =>{
+    db.collection('mealtype').find().toArray((err, result) =>{
         if(err) throw err;
         res.send(result)
     })
 })
 
-//rest details
-app.get('/details/:id',(req,res) => {
-    let restId  = Number(req.params.id)
+//restaurants details
+app.get('/details/:id',(req,res) =>{ 
+    let restId = Number(req.params.id)
     // let restId = mongo.ObjectId(req.params.id)
-    db.collection('restaurants').find({restaurant_id:restId}).toArray((err,result) =>{
+    db.collection('restaurants').find({restaurant_id:restId}).toArray((err, result) =>{
         if(err) throw err;
         res.send(result)
     })
 })
-
-//menu wrt to rest
-app.get('/menu/:id',(req,res) => {
-    let restId  = Number(req.params.id)
-    db.collection('menu').find({restaurant_id:restId}).toArray((err,result) =>{
+//menu wrt restaurants
+app.get('/menu/:id',(req,res) =>{ 
+    let restId = Number(req.params.id)
+    db.collection('menu').find({restaurant_id:restId}).toArray((err, result) =>{
         if(err) throw err;
         res.send(result)
     })
 })
-// get orders
-app.get('/orders',(req,res) => {
-    let email  = req.query.email
+//menu on basis of user selection
+//get orders
+app.get('/orders',(req,res) =>{ 
+    let email = req.query.email
     let query = {};
     if(email){
         query = {"email":email}
     }
-    db.collection('orders').find(query).toArray((err,result) =>{
+    console.log(">>>>restId",stateId)
+    db.collection('orders').find(query).toArray((err, result) =>{
         if(err) throw err;
         res.send(result)
     })
 })
-
-//place order (post)
+//place order(post)
 app.post('/placeOrder',(req,res) => {
-    //console.log(req.body)
-    db.collection('orders').insert(req.body,(err,result) =>{
+    // console.log(req.body)
+    db.collection('orders').insertOne(req.body,(err, result) =>{
         if(err) throw err;
         res.send('Order Added')
     })
 })
-
+//menuItem (post)
 app.post('/menuItem',(req,res) => {
-    console.log(req.body)
-    db.collection('menu').find({menu_id:{$in:req.body}}).toArray((err,result) =>{
+     console.log(req.body)
+     db.collection('menu').find({menu_id:{$in:req.body}}).toArray((err, result) =>{
         if(err) throw err;
         res.send(result)
     })
 })
 
+//delete data
 app.delete('/deleteOrder',(req,res) => {
-    db.collection('orders').remove({},(err,result) =>{
+    db.collection('orders').remove({},(err, result) =>{
         if(err) throw err;
         res.send(result)
     })
 })
 
+//update data
 app.put('/updateOrder/:id',(req,res) => {
-    let oId = mongo.ObjectId(req.params.id)
+    let ordId = mongo.ObjectId(req.params.id)
     let status = req.query.status?req.query.status:'Pending'
     db.collection('orders').updateOne(
-        {_id:oId},
-        {$set:{
+        {_id:ordId},
+        {$set: {
             "status":status,
             "bank_name":req.body.bank_name,
             "bank_status":req.body.bank_status
-        }},(err,result)=>{
+        }},(err, result)=>{
             if(err) throw err;
-            res.send(`Status Updated to ${status}`)
+            res.send(`Status updated to ${status}`)
         }
     )
 })
+
+
+
 
 // connecting with mongodb
 MongoClient.connect(mongoUrl,(err,connection) =>{
