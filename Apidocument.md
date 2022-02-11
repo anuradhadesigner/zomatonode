@@ -1,11 +1,16 @@
-Page 1
+// Page 1 //
+
 List of city
 > http://localhost:6700/location
-> https://zomatonodejs.herokuapp.com//location
+> https://zomatonodejs.herokuapp.com/location
+
+List of hotels
+> http://localhost:6700/hotels
+> https://zomatonodejs.herokuapp.com/hotels
 
 List of restaurants 
 > http://localhost:6700/restaurants
-> https://zomatonodejs.herokuapp.com/reataurants
+> https://zomatonodejs.herokuapp.com/restaurants
 
 restaurants wrt to city 
 > http://localhost:6700/restaurants?state_id=2
@@ -13,11 +18,11 @@ restaurants wrt to city
 
 quick search data  
 > http://localhost:6700/mealType
-> https://zomatonodejs.herokuapp.com/quicksearch
+> https://zomatonodejs.herokuapp.com/mealType
 
-(http://localhost:6700/restaurants?state_id=4&meal_id=5)
 
-Page 2
+
+// Page 2 //
 
 restaurants wrt to quickSearch 
 > http://localhost:6700/restaurants?meal_id=5

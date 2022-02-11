@@ -32,7 +32,20 @@ app.get('/location',(req,res) => {
         res.send(result)
     })
 })
-
+//hotels as per city
+app.get('/hotels',(req,res) => {
+    let city = Number(req.params.city)
+    let query = {};
+    if(city){
+        query = {city: city}
+    }
+    console.log(">>>>hotelId",city)
+    db.collection('hotels').find(query).toArray((err,result) => {
+        if(err) throw err;
+        res.send(result)
+    })
+    
+})
 //restaurants as per location
 app.get('/restaurants',(req,res) => {
     let stateId = Number(req.params.state_id)
