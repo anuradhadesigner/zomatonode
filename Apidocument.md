@@ -17,15 +17,18 @@ mealType data/quick search data
 
 restaurants wrt to quickSearch /mealType
 > http://localhost:8700/restaurants?meal_id=5
-> 
+> >https://zomatonodejs.herokuapp.com/restaurants?meal_id=5
+
 // filter //
 > cuisine filter
   data respect to cuisine and quickSearch 
   > http://localhost:8700/filter/3?cuisine=4
-  >https://zomatonodejs.herokuapp.com/restaurants?meal_id=5
+  > https://zomatonodejs.herokuapp.com/filter/3?cuisine=4
+  
 > // cost filter //
   > http://localhost:8700/filter/1?lcost=200&hcost=500
   > https://zomatonodejs.herokuapp.com/filter/1?lcost=200&hcost=500
+  
  // data respect to cuisine and cost //
 > cuisine filter + cost filter 
   > http://localhost:8700/filter/1?lcost=200&hcost=500&cuisineId=1
