@@ -115,7 +115,7 @@ app.get('/menu/:id',(req,res) =>{
 })
 //menu on basis of user selection
 //get orders
-app.get(`/orders`,(req,res) =>{ 
+app.get('/orders',(req,res) =>{ 
     let email = req.query.email
     let query = {};
     if(email){
