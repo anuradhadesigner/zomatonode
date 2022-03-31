@@ -122,7 +122,7 @@ app.get('/orders',(req,res) =>{
         query = {"email":email}
     }
     console.log(">>>>restId",stateId)
-    db.collection('Orders').find(query).toArray((err, result) =>{
+    db.collection('orders').find(query).toArray((err, result) =>{
         if(err) throw err;
         res.send(result)
     })
@@ -130,7 +130,7 @@ app.get('/orders',(req,res) =>{
 //place order(post)
 app.post('/placeOrder',(req,res) => {
     // console.log(req.body)
-    db.collection('Orders').insertOne(req.body,(err, result) =>{
+    db.collection('orders').insertOne(req.body,(err, result) =>{
         if(err) throw err;
         res.send('Order Added')
     })
@@ -146,7 +146,7 @@ app.post('/menuItem',(req,res) => {
 
 //delete data
 app.delete('/deleteOrder',(req,res) => {
-    db.collection('Orders').remove({},(err, result) =>{
+    db.collection('orders').remove({},(err, result) =>{
         if(err) throw err;
         res.send(result)
     })
@@ -156,7 +156,7 @@ app.delete('/deleteOrder',(req,res) => {
 app.put('/updateOrder/:id',(req,res) => {
     let ordId = mongo.ObjectId(req.params.id)
     let status = req.query.status?req.query.status:'Pending'
-    db.collection('Orders').updateOne(
+    db.collection('orders').updateOne(
         {_id:ordId},
         {$set: {
             "status":status,
