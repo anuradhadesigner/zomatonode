@@ -121,7 +121,7 @@ app.get('/orders',(req,res) =>{
     if(email){
         query = {"email":email}
     }
-    console.log(">>>>restId",stateId)
+//     console.log(">>>>restId",stateId)
     db.collection('orders').find(query).toArray((err, result) =>{
         if(err) throw err;
         res.send(result)
