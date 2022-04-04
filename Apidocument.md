@@ -3,12 +3,15 @@
 List of city
 > http://localhost:8700/location
 > https://zomatonodejs.herokuapp.com/location
+
 List of restaurants 
 > http://localhost:8700/restaurants
 >https://zomatonodejs.herokuapp.com/restaurants
+
 restaurants wrt to city 
 > http://localhost:8700/restaurants?state_id=3
 > https://zomatonodejs.herokuapp.com/restaurants?state_id=3
+
 mealType data/quick search data  
 > http://localhost:8700/mealtype
 > https://zomatonodejs.herokuapp.com/mealtype
@@ -30,9 +33,11 @@ restaurants wrt to quickSearch /mealType
   > https://zomatonodejs.herokuapp.com/filter/1?lcost=200&hcost=500
   
  // data respect to cuisine and cost //
+ 
 > cuisine filter + cost filter 
   > http://localhost:8700/filter/1?lcost=200&hcost=500&cuisineId=1
   >https://zomatonodejs.herokuapp.com/filter/1?lcost=200&hcost=500&cuisineId=1
+  
 > // sort //
     sort low to high in same quickSearch
     > http://localhost:8700/filter/1?cuisineId=1&sort=1
