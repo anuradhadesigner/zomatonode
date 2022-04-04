@@ -58,20 +58,26 @@ restaurants wrt to quickSearch /mealType
 
   > menu items on user selection
   > localhost:8700/menuItem
+  > https://zomatonodejs.herokuapp.com/menuItem
   > 
   >body[4,5,7]
 
   >api to place order
   >localhost:8700/placeOrder
+  >https://zomatonodejs.herokuapp.com/placeOrder
 
 
 // page 5 //
 > list all order
   > http://localhost:8700/orders/2
-  > http://localhost:8700/orders?email="anuradha@gmail.com"
+  > https://zomatonodejs.herokuapp.com/orders
+  
+  > http://localhost:8700/orders?email="priya@gmail.com"
+  > https://zomatonodejs.herokuapp.com/orders?email="priya@gmail.com
 
 Delete order 
 > localhost:8700/deleteOrder
+>  https://zomatonodejs.herokuapp.com/deleteOrder
  
 
  update order
