@@ -94,7 +94,7 @@ restaurants wrt to quickSearch /mealType
   
   > http://localhost:8700/orders?email="priya@gmail.com"
   
-  > https://zomatonodejs.herokuapp.com/orders?email="priya@gmail.com
+  > https://zomatonodejs.herokuapp.com/orders?email=priya@gmail.com
 
 Delete order 
 > localhost:8700/deleteOrder
